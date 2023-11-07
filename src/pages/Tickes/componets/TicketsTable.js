@@ -1,10 +1,24 @@
 
 import {Table} from "react-bootstrap"
-import TicktRow from "./TicktRow"
+import TicktRowComponet from "./TicktRow"
+import { useEffect, useReducer } from "react"
+import { ticktReducer,initialState } from "../../../reducers/tickts"
+import { SET_TICKETS ,ADD_QUANTITY} from "../../../acion/tickes"
+//
+const TicketsTableComponent =({tickets})=> {
+    const [state,dispach] = useReducer(ticktReducer,initialState)
 
 
-function TicketsTable({tickets}) {
+    const addTicktsQuantity=(id)=>{
+        console.log(`Se ejecuta`);
+        dispach({type:ADD_QUANTITY, payload:{id}})
+    }
+    useEffect(()=>{
+        dispach({type: SET_TICKETS, payload:{tickets}})        
+    },[tickets])
+
   return (
+  <>
     <Table>
         <thead>
             <tr>
@@ -14,21 +28,21 @@ function TicketsTable({tickets}) {
             </tr>
         </thead>
         <tbody>
-            {tickets.map((ticket)=>(
-                <TicktRow key={ticket.id} ticket={ticket}></TicktRow>
+            { state.tickets?.length > 0 &&
+          state.tickets.map((tickes)=>(
+                <TicktRowComponet key={tickes.id}  {...tickes} addTicktsQuantity={addTicktsQuantity}></TicktRowComponet>
             ))}
-            <tr>
-                <td>Tickets prueba</td>
-                <td> + 1 - </td>
-                <td>700</td>
-            </tr>
+
 
 
         </tbody>
 
-    </Table>
+    </Table>  
+    ${state.total}
+  </>
+
 
   )
 }
 
-export default TicketsTable
+export default TicketsTableComponent;

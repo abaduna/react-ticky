@@ -1,8 +1,12 @@
 import { Suspense, lazy } from "react"
-// import TicketsTable from "./componets/TicketsTable"
-import TicketsTable from "./componets/TicketsTable"                 
+
+
+import TicketsTableComponent from "./componets/TicketsTable"
+               
 
 // const Modal = lazy(()=>import("modal"))
+
+
 const tickets = [
     {
         id:1,
@@ -21,17 +25,20 @@ function Tickes() {
   return (
     <>
         <h2>Ticket</h2>
-        <TicketsTable tickets={tickets}></TicketsTable>
+        <TicketsTableComponent tickets={tickets}></TicketsTableComponent>
+
 
 
     </>
 
   )
 }
-
+//
 export default Tickes
 
 
 {/* /       <Suspense> */}
             {/* <button onClick={Modal}></button>
         </Suspense> */}
+
+

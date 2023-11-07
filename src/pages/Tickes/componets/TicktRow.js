@@ -1,21 +1,22 @@
-//{id,descripcion,precio,cantidad, addTicktsQuantity, substractTicktsQuantity}
-const TicktRow = () => {
+//
+import { Button } from "react-bootstrap";
+const TicktRowComponet = ({id,descripcion,precio,cantidad, addTicktsQuantity, substractTicktsQuantity}) => {
   return (
 <>
-    {/* <tr>
+    <tr>
         <td>{descripcion}</td>
         <td>
-            <button className="btn" >-</button>
+            <Button className="btn m-3" >-</Button>
              <span>{cantidad}</span>
-            <button className="btn" >+</button>
+            <Button className="btn m-3" onClick={()=>{addTicktsQuantity(id)}} >+</Button>
         </td>        
         <td>${precio}</td>
 
 
-    </tr> */}
+    </tr>
 
 </>
   )
 }
+export default TicktRowComponet;
 
-export default TicktRow
