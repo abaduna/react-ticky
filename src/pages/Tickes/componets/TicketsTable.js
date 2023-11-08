@@ -3,7 +3,7 @@ import {Table} from "react-bootstrap"
 import TicktRowComponet from "./TicktRow"
 import { useEffect, useReducer } from "react"
 import { ticktReducer,initialState } from "../../../reducers/tickts"
-import { SET_TICKETS ,ADD_QUANTITY} from "../../../acion/tickes"
+import { SET_TICKETS ,ADD_QUANTITY,REST_QUANTITY} from "../../../acion/tickes"
 //
 const TicketsTableComponent =({tickets})=> {
     const [state,dispach] = useReducer(ticktReducer,initialState)
@@ -12,6 +12,11 @@ const TicketsTableComponent =({tickets})=> {
     const addTicktsQuantity=(id)=>{
         console.log(`Se ejecuta`);
         dispach({type:ADD_QUANTITY, payload:{id}})
+    }
+    const restTicktsQuantity=(id)=>{
+        console.log(`click en ticketsTable`);
+
+        dispach({type:REST_QUANTITY, payload:{id}})
     }
     useEffect(()=>{
         dispach({type: SET_TICKETS, payload:{tickets}})        
@@ -30,7 +35,7 @@ const TicketsTableComponent =({tickets})=> {
         <tbody>
             { state.tickets?.length > 0 &&
           state.tickets.map((tickes)=>(
-                <TicktRowComponet key={tickes.id}  {...tickes} addTicktsQuantity={addTicktsQuantity}></TicktRowComponet>
+                <TicktRowComponet key={tickes.id}  {...tickes} addTicktsQuantity={addTicktsQuantity} restTicktsQuantity={restTicktsQuantity}></TicktRowComponet>
             ))}
 
 
@@ -46,3 +51,4 @@ const TicketsTableComponent =({tickets})=> {
 }
 
 export default TicketsTableComponent;
+

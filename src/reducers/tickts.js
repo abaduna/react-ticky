@@ -1,11 +1,12 @@
 
-import {SET_TICKETS, ADD_QUANTITY } from "../acion/tickes"
+import {SET_TICKETS, ADD_QUANTITY ,REST_QUANTITY} from "../acion/tickes"
 
 
 export const initialState = {
     tickets:[],
     total:0,
-    resume:{}
+    resume:{},
+    loading: true
 
 }
 
@@ -21,6 +22,7 @@ export const ticktReducer =(state = initialState,action)=>{
     switch (action.type) {
         case SET_TICKETS:{
             return{
+                loading: false,
                 tickets: action.payload.tickets,
                 total:getTotal(state.tickets),
             }       
@@ -39,6 +41,21 @@ export const ticktReducer =(state = initialState,action)=>{
 
                     
             }
+        }
+        case REST_QUANTITY:{
+            console.log(`REST_QUANTITY`);
+            const tickets = state.tickets.map((ticket)=>
+            
+            ticket.id === action.payload.id ?
+            { ...ticket, cantidad: ticket.cantidad > 0 ? ticket.cantidad - 1 : ticket.cantidad }
+
+            // {...ticket,cantidad: ticket.cantidad - 1}
+            : ticket
+        )
+        return{
+            tickets,
+            total: getTotal(tickets)
+        }
         }
     
         default:{
